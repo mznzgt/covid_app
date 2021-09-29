@@ -35,6 +35,7 @@ def configure_database(app):
 def create_app(config):
     app = Flask(__name__, static_folder='base/static')
     app.config.from_object(config)
+    app.config["SECRET_KEY"] = '79537d00f4834892986f09a100aa1edf'
     register_extensions(app)
     register_blueprints(app)
     configure_database(app)

@@ -122,6 +122,26 @@
                     max: 10000000,
                     type: 'logarithmic'
                 },
+                
+                plotOptions:{
+        series:{
+            point:{
+                events:{
+                    click: function(){
+                        if (this.name == 'New Zealand'){
+                                        location.href='ui-tables.html';
+                        }
+                        else if (this.name == 'Australia'){
+                            location.href='ui-tabless.html';
+                        }
+                        else if(this.name == 'China'){
+                            location.href='ui-tabbles.html';
+                        }
+                    }
+                }
+            }
+        }
+    },
 
                 series: [{
                     //call the custom data here

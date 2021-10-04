@@ -57,11 +57,73 @@ def plot_data():
     FigureCanvas(fig).print_png(output)
 
     return data, output
+
+def plot_data2():
+
+    Canada = data[data["location"] == 'Australia']   
+
+    last30 = Canada[-30:]
+
+    date2 = pd.to_datetime(last30["date"]).dt.strftime("%m/%d")
+
+    fig = Figure(figsize=(18, 12))
+
+    axis1 = fig.add_subplot(2, 1, 1)
+
+    axis1.plot(date2, last30["total_cases"], label='Total Cases')
+
+    axis1.set_title("Total Cases in recent 30 days")
+
+    axis2 = fig.add_subplot(2, 1, 2)
+
+    axis2.plot(date2, last30["total_deaths"], label = "Total Deaths")
+
+    axis2.set_title("Total Deaths in recent 30 days")
+    
+    output2 = io.BytesIO()
+
+    FigureCanvas(fig).print_png(output2)
+
+    return data, output2
+
+
+def plot_data3():
+
+    China = data[data["location"] == 'China']   
+
+    last30 = China[-30:]
+
+    date2 = pd.to_datetime(last30["date"]).dt.strftime("%m/%d")
+
+    fig = Figure(figsize=(18, 12))
+
+    axis1 = fig.add_subplot(2, 1, 1)
+
+    axis1.plot(date2, last30["total_cases"], label='Total Cases')
+
+    axis1.set_title("Total Cases in recent 30 days")
+
+    axis2 = fig.add_subplot(2, 1, 2)
+
+    axis2.plot(date2, last30["total_deaths"], label = "Total Deaths")
+
+    axis2.set_title("Total Deaths in recent 30 days")
+    
+    output3 = io.BytesIO()
+
+    FigureCanvas(fig).print_png(output3)
+
+    return data, output3
+
+
 def all_data():
     Asia = data[data["continent"] == "Asia"]
     last30 = Asia[-30:]   
     return data, output
+
 data, output = plot_data()
+data, output2 = plot_data2()
+data, output3 = plot_data3()
 
 
 @blueprint.route('/plot.png')
@@ -69,7 +131,21 @@ def image_plot():
     # fig = create_figure()
     # output = io.BytesIO()
     # FigureCanvas(fig).print_png(output)
-    return Response(output.getvalue(), mimetype='image/png')
+    return Response(output2.getvalue(), mimetype='image/png')
+
+@blueprint.route('/plotTwo.png')
+def image_plot2():
+    # fig = create_figure()
+    # output = io.BytesIO()
+    # FigureCanvas(fig).print_png(output)
+    return Response(output2.getvalue(), mimetype='image/png')
+
+@blueprint.route('/plotThree.png')
+def image_plot3():
+    # fig = create_figure()
+    # output = io.BytesIO()
+    # FigureCanvas(fig).print_png(output)
+    return Response(output3.getvalue(), mimetype='image/png')
 
 # end of plot section
 
